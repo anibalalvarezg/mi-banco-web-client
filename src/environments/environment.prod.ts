@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  serverHost: 'mi-banco-api.herokuapp.com/api/'
 };
