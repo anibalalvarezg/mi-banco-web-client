@@ -32,7 +32,13 @@
       <p class="text-muted p-2">*Campos obligatorios.</p>
 
       <div class="d-grid gap-2">
-        <button class="btn btn-primary mr-3" type="submit"  [disabled]="registerForm.status === 'INVALID'">Crear Cuenta</button>
+        <button
+          class="btn btn-primary mr-3"
+          type="submit"
+          [disabled]="registerForm.status === 'INVALID'"
+        >
+          Crear Cuenta <i class="fas fa-user-plus"></i>
+        </button>
       </div>
     </form>
   </div>
