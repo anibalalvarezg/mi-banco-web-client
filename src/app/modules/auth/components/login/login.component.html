@@ -4,6 +4,9 @@
     <div class="alert alert-danger" role="alert" *ngIf="authError">
       <b>Datos Incorretos!</b>
     </div>
+    <div class="alert alert-success" role="alert" *ngIf="authService.newUser && !authError">
+      <b>Cuenta creada con éxito!</b>
+    </div>
     <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label"
@@ -19,7 +22,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="passwordInput" class="form-label">Password</label>
+        <label for="passwordInput" class="form-label">Constraseña</label>
         <input
           type="password"
           class="form-control"

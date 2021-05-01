@@ -6,9 +6,14 @@ import { CommunicationService } from '../../core/services/communication.service'
 })
 export class AuthService {
 
+  public newUser = false;
   constructor(private communicationService: CommunicationService) { }
 
-  signup(body: any) {
+  signin(body: any) {
     return this.communicationService.post('auth/signin', body).toPromise();
+  }
+
+  signup(body: any) {
+    return this.communicationService.post('auth/signup', body).toPromise();
   }
 }
