@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CacheService } from 'src/app/modules/core/services/cache.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -19,7 +20,8 @@ export class LoginComponent {
 
   constructor(public authService: AuthService,
               private cacheService: CacheService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private router: Router) { }
 
   async login(): Promise<void> {
     try {
@@ -27,6 +29,7 @@ export class LoginComponent {
       const { token } = response.data;
       this.cacheService.saveItemLocal('token', token);
       this.authError = false;
+      this.router.navigate(['bank']);
     } catch(error) {
       console.error(error.message);
       this.authError = true;
