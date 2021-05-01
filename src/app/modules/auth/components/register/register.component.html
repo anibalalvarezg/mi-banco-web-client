@@ -7,7 +7,7 @@
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label"
-          >Correo Electrónico</label
+          >Correo Electrónico*</label
         >
         <input
           type="email"
@@ -19,7 +19,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="passwordInput" class="form-label">Contraseña</label>
+        <label for="passwordInput" class="form-label">Contraseña*</label>
         <input
           type="password"
           class="form-control"
@@ -28,6 +28,8 @@
           formControlName="password"
         />
       </div>
+
+      <p class="text-muted p-2">*Campos obligatorios.</p>
 
       <div class="d-grid gap-2">
         <button class="btn btn-primary mr-3" type="submit"  [disabled]="registerForm.status === 'INVALID'">Crear Cuenta</button>
