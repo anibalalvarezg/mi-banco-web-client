@@ -1,6 +1,9 @@
 <div class="container p-5">
   <h1>Historial</h1>
   <hr>
+  <div class="alert alert-primary" role="alert" *ngIf="!hasHistory">
+    <b>Aún no posees historial de trasnferencias!</b>
+  </div>
   <table class="table table-striped table-hover" *ngIf="history.length">
     <thead>
       <tr>

@@ -11,7 +11,7 @@ export class BankService {
   }
 
   public getAccounts() {
-    return this.communicationService.get('bank/accounts');
+    return this.communicationService.get('bank/accounts').toPromise();
   }
 
   public createRecipient(body: any) {

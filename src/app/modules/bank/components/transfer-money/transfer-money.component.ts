@@ -46,9 +46,8 @@ export class TransferMoneyComponent implements OnInit {
     const bankResp = await this.bankService.getBanks() as IBanks;
     this.bankList = bankResp.banks;
 
-    this.bankService.getAccounts().subscribe((resp: any) => {
-      this.accountList = resp.data as IAccount[];
-    });
+    const accountResp = await this.bankService.getAccounts() as IHTTPResponse<IAccount[]>;
+    this.accountList = accountResp.data;
   }
 
   get recipient() {

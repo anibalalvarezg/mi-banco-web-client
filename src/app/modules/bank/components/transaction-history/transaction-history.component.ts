@@ -14,6 +14,7 @@ export class TransactionHistoryComponent implements OnInit {
 
   public userId = '';
   public history: any[] = [];
+  public hasHistory = true;
 
   constructor(
     private cacheService: CacheService,
@@ -38,6 +39,7 @@ export class TransactionHistoryComponent implements OnInit {
             amount: hist.amount,
           }
         });
+        this.hasHistory = this.history.length > 0
       }
     } catch(error) {
       console.error(error.message);
