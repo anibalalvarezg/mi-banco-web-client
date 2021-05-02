@@ -13,10 +13,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let transaction of history">
-        <td>{{ transaction.name }}</td>
+        <td>{{ transaction.name | titlecase }}</td>
         <td>{{ transaction.rut }}</td>
-        <td>{{ transaction.bank }}</td>
-        <td>{{ transaction.accountType }}</td>
+        <td>{{ transaction.bank | titlecase }}</td>
+        <td>{{ transaction.accountType | titlecase }}</td>
         <td>{{ transaction.amount | currency:'CLP':'$':'1.0-2' }}</td>
       </tr>
     </tbody>
