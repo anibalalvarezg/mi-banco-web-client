@@ -3,7 +3,7 @@
   <hr />
   <form>
     <div class="row">
-      <div class="form-group col">
+      <div class="form-group col-6">
         <label for="text">Nombre</label>
         <input
           id="text"
@@ -14,7 +14,7 @@
           class="form-control"
         />
       </div>
-      <div class="form-group col">
+      <div class="form-group col-6">
         <label for="rut">Rut</label>
         <input
           id="rut"
@@ -25,10 +25,8 @@
           class="form-control"
         />
       </div>
-    </div>
 
-    <div class="row">
-      <div class="form-group col">
+      <div class="form-group col-6">
         <label for="email">Correo</label>
         <div class="input-group">
           <div class="input-group-prepend">
@@ -40,13 +38,13 @@
             id="email"
             name="email"
             placeholder="Ingrese Correo Electrónico"
-            type="text"
+            type="email"
             required="required"
             class="form-control"
           />
         </div>
       </div>
-      <div class="form-group col">
+      <div class="form-group col-6">
         <label for="phone-number">Teléfono</label>
         <div class="input-group">
           <div class="input-group-prepend">
@@ -64,10 +62,8 @@
           />
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="form-group col">
+      <div class="form-group col-6">
         <label for="bank">Banco</label>
         <div>
           <select
@@ -77,14 +73,14 @@
             required="required"
             class="custom-select"
           >
-            <option value="001">Chile</option>
+            <option *ngFor="let bank of bankList" [value]="bank?.id">{{ bank?.name }}</option>
           </select>
           <span id="bankHelpBlock" class="form-text text-muted"
             >Seleccione Banco</span
           >
         </div>
       </div>
-      <div class="form-group col">
+      <div class="form-group col-6">
         <label for="banck-account">Tipo de Cuenta</label>
         <div>
           <select
@@ -92,7 +88,7 @@
             name="banck-account"
             class="custom-select"
             aria-describedby="banck-accountHelpBlock"
-            required="required"
+            (change)="selectBank()"
           >
             <option value="001">Vista</option>
           </select>
@@ -103,24 +99,24 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col">
+      <div class="form-group col-6">
         <label for="number-account">Nº de Cuenta</label>
         <input
           id="number-account"
           name="number-account"
-          placeholder="Ingrese Nùmero de Cuenta"
+          placeholder="Ingrese Número de Cuenta"
           type="text"
           class="form-control"
           required="required"
         />
       </div>
 
-      <div class="col"></div>
+      <div class="col-6"></div>
     </div>
 
     <div class="my-5">
       <div class="d-flex justify-content-center">
-        <button name="submit" type="submit" class="btn btn-primary btn-lg col-3">
+        <button name="submit" type="submit" class="btn btn-primary btn-lg col-6-3">
           Crear
         </button>
       </div>

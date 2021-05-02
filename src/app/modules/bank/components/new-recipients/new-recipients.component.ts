@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BankService } from '../../services/bank.service';
 
 @Component({
   selector: 'app-new-recipients',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewRecipientsComponent implements OnInit {
 
-  constructor() { }
+  bankList: { name: string, id: string}[]= [];
+  constructor(private bankService: BankService) { }
 
   ngOnInit(): void {
+    this.bankService.getBanks().subscribe((resp: any) => {
+      this.bankList = resp.banks as { name: string, id: string}[];
+    });
+  }
+
+  selectBank() {
+    console.log('asd');
   }
 
 }
