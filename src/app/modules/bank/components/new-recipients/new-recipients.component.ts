@@ -9,16 +9,18 @@ import { BankService } from '../../services/bank.service';
 export class NewRecipientsComponent implements OnInit {
 
   bankList: { name: string, id: string}[]= [];
+  accountList: { name: string, value: string}[]= [];
+
   constructor(private bankService: BankService) { }
 
   ngOnInit(): void {
     this.bankService.getBanks().subscribe((resp: any) => {
       this.bankList = resp.banks as { name: string, id: string}[];
     });
-  }
 
-  selectBank() {
-    console.log('asd');
+    this.bankService.getAccounts().subscribe((resp: any) => {
+      this.accountList = resp.data;
+    });
   }
 
 }

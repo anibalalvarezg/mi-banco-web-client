@@ -7,6 +7,9 @@ import { CoreModule } from '../core/core.module';
 import { NewRecipientsComponent } from './components/new-recipients/new-recipients.component';
 import { TransferMoneyComponent } from './components/transfer-money/transfer-money.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from '../core/interceptors/auth-interceptor.service';
+import { BankService } from './services/bank.service';
 
 
 @NgModule({
@@ -20,6 +23,14 @@ import { TransactionHistoryComponent } from './components/transaction-history/tr
     CommonModule,
     BankRoutingModule,
     CoreModule
-  ]
+  ],
+  providers: [
+    BankService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
 })
 export class BankModule { }

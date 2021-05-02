@@ -48,9 +48,7 @@
         <label for="phone-number">Teléfono</label>
         <div class="input-group">
           <div class="input-group-prepend">
-            <div class="input-group-text">
-              +569
-            </div>
+            <div class="input-group-text">+569</div>
           </div>
           <input
             id="phone-number"
@@ -74,7 +72,9 @@
             required="required"
             class="custom-select"
           >
-            <option *ngFor="let bank of bankList" [value]="bank?.id">{{ bank?.name }}</option>
+            <option *ngFor="let bank of bankList" [value]="bank?.id">
+              {{ bank?.name }}
+            </option>
           </select>
           <span id="bankHelpBlock" class="form-text text-muted"
             >Seleccione Banco</span
@@ -89,9 +89,8 @@
             name="banck-account"
             class="custom-select"
             aria-describedby="banck-accountHelpBlock"
-            (change)="selectBank()"
           >
-            <option value="001">Vista</option>
+            <option *ngFor="let account of accountList" [value]="account?.value">{{ account?.name }}</option>
           </select>
           <span id="banck-accountHelpBlock" class="form-text text-muted"
             >Seleccione Tipo de Cuenta</span
@@ -117,11 +116,14 @@
 
     <div class="my-5">
       <div class="d-flex justify-content-center">
-        <button name="submit" type="submit" class="btn btn-primary btn-lg col-6-3">
+        <button
+          name="submit"
+          type="submit"
+          class="btn btn-primary btn-lg col-6-3"
+        >
           Crear
         </button>
       </div>
-
     </div>
   </form>
 </div>
