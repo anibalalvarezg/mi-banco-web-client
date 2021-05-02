@@ -34,9 +34,11 @@ export class LoginComponent implements OnInit {
       const response = await this.authService.signin(this.loginForm.value) as any;
       const { token, _doc: session } = response.data;
       this.cacheService.saveItemLocal('token', token);
-      this.cacheService.saveItemSession('session', session);
+      this.cacheService.saveItemLocal('session', JSON.stringify(session));
 
       this.authError = false;
+      this.authService.newUser = false;
+
       this.router.navigate(['bank']);
     } catch(error) {
       console.error(error.message);

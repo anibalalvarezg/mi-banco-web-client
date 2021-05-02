@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
-import { take } from 'rxjs/operators';
+import { IHTTPResponse } from 'src/app/modules/core/interfaces/http-response';
 import { CacheService } from 'src/app/modules/core/services/cache.service';
 import { IAccount, IBank, IBanks, IRecipient } from '../../interfaces';
 import { BankService } from '../../services/bank.service';
@@ -18,6 +18,7 @@ export class TransferMoneyComponent implements OnInit {
   public bankList: IBank[] = [];
   public accountList: IAccount[] = [];
   public userId: string = '';
+  public hasRecipients = true;
 
   public transferAmountForm = this.fb.group({
     amount: ['', [Validators.required, Validators.min(0)]],
@@ -32,18 +33,18 @@ export class TransferMoneyComponent implements OnInit {
     this.config.notFoundText = 'Destinatario no encontrado.';
   }
 
-  ngOnInit(): void {
-    const user = this.cacheService.getItemSession('session') || null;
+  public async ngOnInit(): Promise<void>   {
+    const user = JSON.parse(this.cacheService.getItemLocal('session')) || null;
     if (user) {
       this.userId = user._id;
     }
-    this.bankService.getAllRecipients({ userId: this.userId }).subscribe((resp: any) => {
-      this.recipientsList = resp.data as IRecipient[];
-    });
 
-    this.bankService.getBanks().subscribe((resp: any) => {
-      this.bankList = resp.banks as IBank[];
-    });
+    const resp = await this.bankService.getAllRecipients({ userId: this.userId }) as IHTTPResponse<IRecipient[]>
+    this.recipientsList = resp.data;
+    this.hasRecipients = this.recipientsList.length > 0;
+
+    const bankResp = await this.bankService.getBanks() as IBanks;
+    this.bankList = bankResp.banks;
 
     this.bankService.getAccounts().subscribe((resp: any) => {
       this.accountList = resp.data as IAccount[];

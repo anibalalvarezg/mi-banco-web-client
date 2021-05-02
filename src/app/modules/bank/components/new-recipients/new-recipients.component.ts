@@ -3,7 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { IHTTPResponse } from 'src/app/modules/core/interfaces/http-response';
 import { CacheService } from 'src/app/modules/core/services/cache.service';
+import { IBanks } from '../../interfaces';
 import { BankService } from '../../services/bank.service';
 
 @Component({
@@ -37,10 +39,9 @@ export class NewRecipientsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
   ) { }
 
-  public ngOnInit(): void {
-    this.susbscripyions.push(this.bankService.getBanks().pipe(take(1)).subscribe((resp: any) => {
-      this.bankList = resp.banks as { name: string, id: string}[];
-    }));
+  public async ngOnInit(): Promise<void> {
+    const resp = await this.bankService.getBanks() as IBanks;
+    this.bankList = resp.banks;
 
     this.susbscripyions.push(this.bankService.getAccounts().pipe(take(1)).subscribe((resp: any) => {
       this.accountList = resp.data;
@@ -48,11 +49,11 @@ export class NewRecipientsComponent implements OnInit, OnDestroy {
   }
 
   public async createRecipient() {
-    const user = this.chacheService.getItemSession('session');
+    const user = JSON.parse(this.chacheService.getItemLocal('session'));
     let userId;
     if (!user) {
       const session = await this.authService.getProfile() as any;
-      this.chacheService.saveItemSession('session', session);
+      this.chacheService.saveItemLocal('session', JSON.stringify(session));
       userId = session && session._id || null;
     } else {
       userId = user && user._id || null;
@@ -63,7 +64,7 @@ export class NewRecipientsComponent implements OnInit, OnDestroy {
     }
 
     try {
-      const response = await this.bankService.createRecipient(newRecipient);
+      await this.bankService.createRecipient(newRecipient);
       this.recipientForm.reset();
       this.error = false;
       this.success = true;

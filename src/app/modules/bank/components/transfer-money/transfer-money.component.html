@@ -1,7 +1,10 @@
 <div class="container p-5">
   <h1>Transferir</h1>
   <hr />
-  <div class="form-group col-6">
+  <div class="alert alert-danger" role="alert" *ngIf="!hasRecipients">
+    <b>Aún no posees destinatarios para Trasnferir!</b>
+  </div>
+  <div class="form-group col-6" *ngIf="recipientsList.length">
     <label for="banck-account">Buscar Destinataio </label>
     <div>
       <ng-select

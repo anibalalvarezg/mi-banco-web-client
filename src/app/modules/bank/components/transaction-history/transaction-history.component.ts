@@ -21,7 +21,7 @@ export class TransactionHistoryComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    const user = this.cacheService.getItemSession('session') || null;
+    const user = JSON.parse(this.cacheService.getItemLocal('session')) || null;
     if (user) {
       this.userId = user._id;
     }
