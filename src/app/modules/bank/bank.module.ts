@@ -10,6 +10,8 @@ import { TransactionHistoryComponent } from './components/transaction-history/tr
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from '../core/interceptors/auth-interceptor.service';
 import { BankService } from './services/bank.service';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../auth/services/auth.service';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { BankService } from './services/bank.service';
   ],
   providers: [
     BankService,
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

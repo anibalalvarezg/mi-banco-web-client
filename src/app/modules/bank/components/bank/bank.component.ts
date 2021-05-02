@@ -12,14 +12,15 @@ export class BankComponent implements OnInit {
   constructor(private cacheService: CacheService,
               private router: Router) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (!this.cacheService.getItemLocal('token')) {
       this.router.navigate(['auth']);
     }
   }
 
-  logout() {
+  public logout() {
     this.cacheService.cleanLocal();
+    this.cacheService.cleanSession();
     this.router.navigate(['auth']);
   }
 

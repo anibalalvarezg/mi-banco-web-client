@@ -1,10 +1,16 @@
 <div class="container p-5">
   <h1>Nuevo destinatario</h1>
   <hr />
-  <form>
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    <b>Error al crear al nuevo destinatario.</b>
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="success">
+    <b>Se ha creado el nuevo destinatario con éxito.</b>
+  </div>
+  <form action="" [formGroup]="recipientForm" (ngSubmit)="createRecipient()">
     <div class="row">
       <div class="form-group col-6">
-        <label for="text">Nombre</label>
+        <label for="text">Nombre*</label>
         <input
           id="text"
           name="text"
@@ -12,10 +18,11 @@
           type="text"
           required="required"
           class="form-control"
+          formControlName="name"
         />
       </div>
       <div class="form-group col-6">
-        <label for="rut">Rut</label>
+        <label for="rut">Rut*</label>
         <input
           id="rut"
           name="rut"
@@ -23,11 +30,12 @@
           type="text"
           required="required"
           class="form-control"
+          formControlName="rut"
         />
       </div>
 
       <div class="form-group col-6">
-        <label for="email">Correo</label>
+        <label for="email">Correo*</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -41,11 +49,12 @@
             type="email"
             required="required"
             class="form-control"
+            formControlName="email"
           />
         </div>
       </div>
       <div class="form-group col-6">
-        <label for="phone-number">Teléfono</label>
+        <label for="phone-number">Teléfono*</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <div class="input-group-text">+569</div>
@@ -58,12 +67,14 @@
             type="text"
             required="required"
             class="form-control"
+            formControlName="phone"
           />
         </div>
       </div>
 
       <div class="form-group col-6">
-        <label for="bank">Banco</label>
+        <label for="bank">Banco*
+        </label>
         <div>
           <select
             id="bank"
@@ -71,6 +82,7 @@
             aria-describedby="bankHelpBlock"
             required="required"
             class="custom-select"
+            formControlName="bank"
           >
             <option *ngFor="let bank of bankList" [value]="bank?.id">
               {{ bank?.name }}
@@ -82,13 +94,15 @@
         </div>
       </div>
       <div class="form-group col-6">
-        <label for="banck-account">Tipo de Cuenta</label>
+        <label for="banck-account">Tipo de Cuenta*
+        </label>
         <div>
           <select
             id="banck-account"
             name="banck-account"
             class="custom-select"
             aria-describedby="banck-accountHelpBlock"
+            formControlName="accountType"
           >
             <option *ngFor="let account of accountList" [value]="account?.value">{{ account?.name }}</option>
           </select>
@@ -100,7 +114,7 @@
     </div>
     <div class="row">
       <div class="form-group col-6">
-        <label for="number-account">Nº de Cuenta</label>
+        <label for="number-account">Nº de Cuenta*</label>
         <input
           id="number-account"
           name="number-account"
@@ -108,6 +122,7 @@
           type="text"
           class="form-control"
           required="required"
+          formControlName="account"
         />
       </div>
 
@@ -120,6 +135,7 @@
           name="submit"
           type="submit"
           class="btn btn-primary btn-lg col-6-3"
+          [disabled]="!recipientForm.valid"
         >
           Crear
         </button>

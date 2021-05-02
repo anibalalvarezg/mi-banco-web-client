@@ -16,4 +16,8 @@ export class AuthService {
   signup(body: any) {
     return this.communicationService.post('auth/signup', body).toPromise();
   }
+
+  getProfile() {
+    return this.communicationService.get('auth/profile').toPromise();
+  }
 }
