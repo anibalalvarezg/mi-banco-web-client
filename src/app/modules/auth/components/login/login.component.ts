@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CacheService } from 'src/app/modules/core/services/cache.service';
@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   authError = false;
 
@@ -23,7 +23,13 @@ export class LoginComponent {
               private fb: FormBuilder,
               private router: Router) { }
 
-  async login(): Promise<void> {
+  public ngOnInit() {
+    if (this.cacheService.getItemLocal('token')) {
+      this.router.navigate(['bank']);
+    }
+  }
+
+  public async login(): Promise<void> {
     try {
       const response = await this.authService.signin(this.loginForm.value) as any;
       const { token } = response.data;
