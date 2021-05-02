@@ -25,4 +25,8 @@ export class BankService {
   public transfer(body?: any) {
     return this.communicationService.post('bank/transfer', body).toPromise();
   }
+
+  public getTransferHistory(body?: any) {
+    return this.communicationService.post('bank/transfer-history', body).toPromise();
+  }
 }
