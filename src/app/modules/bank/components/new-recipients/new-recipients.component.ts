@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { CacheService } from 'src/app/modules/core/services/cache.service';
@@ -10,12 +11,14 @@ import { BankService } from '../../services/bank.service';
   templateUrl: './new-recipients.component.html',
   styleUrls: ['./new-recipients.component.scss']
 })
-export class NewRecipientsComponent implements OnInit {
+export class NewRecipientsComponent implements OnInit, OnDestroy {
 
   public bankList: { name: string, id: string}[]= [];
   public accountList: { name: string, value: string}[]= [];
   public error = false;
   public success = false;
+
+  private susbscripyions: Subscription[] = [];
 
   public recipientForm = this.fb.group({
     name: ['', Validators.required],
@@ -35,13 +38,13 @@ export class NewRecipientsComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.bankService.getBanks().pipe(take(1)).subscribe((resp: any) => {
+    this.susbscripyions.push(this.bankService.getBanks().pipe(take(1)).subscribe((resp: any) => {
       this.bankList = resp.banks as { name: string, id: string}[];
-    });
+    }));
 
-    this.bankService.getAccounts().pipe(take(1)).subscribe((resp: any) => {
+    this.susbscripyions.push(this.bankService.getAccounts().pipe(take(1)).subscribe((resp: any) => {
       this.accountList = resp.data;
-    });
+    }));
   }
 
   public async createRecipient() {
@@ -75,4 +78,7 @@ export class NewRecipientsComponent implements OnInit {
 
   }
 
+  public ngOnDestroy() {
+    this.susbscripyions.forEach(subs => subs.unsubscribe());
+  }
 }

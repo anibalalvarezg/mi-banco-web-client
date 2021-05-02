@@ -12,6 +12,7 @@ import { AuthInterceptorService } from '../core/interceptors/auth-interceptor.se
 import { BankService } from './services/bank.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import { AuthService } from '../auth/services/auth.service';
   imports: [
     CommonModule,
     BankRoutingModule,
-    CoreModule
+    CoreModule,
+    NgSelectModule,
+    FormsModule
   ],
   providers: [
     BankService,

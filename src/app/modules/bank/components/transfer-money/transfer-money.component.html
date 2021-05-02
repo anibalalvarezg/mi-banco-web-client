@@ -1,5 +1,68 @@
 <div class="container p-5">
   <h1>Transferir</h1>
-  <hr>
-</div>
+  <hr />
+  <div class="form-group col-6">
+    <label for="banck-account">Buscar Destinataio </label>
+    <div>
+      <ng-select
+        [items]="recipientsList"
+        bindLabel="email"
+        bindValue="_id"
+        [(ngModel)]="recipientSelected"
+      >
+      </ng-select>
+    </div>
+  </div>
 
+  <div class="mt-5 p-2" *ngIf="recipient">
+    <h2>Detalle del destinatario:</h2>
+    <hr />
+    <p>
+      Nombre: <b class="pl-2">{{ recipient?.name || "-" }}</b>
+    </p>
+    <p>
+      Correo Electrónico: <b class="pl-2">{{ recipient?.email || "-" }}</b>
+    </p>
+    <p>
+      Banco: <b class="pl-2">{{ recipient?.bank || "-" }}</b>
+    </p>
+    <p>
+      Tipo de Cuenta: <b class="pl-2">{{ recipient?.accountType || "-" }}</b>
+    </p>
+    <form action="" class="mt-2" [formGroup]="transferAmountForm" (ngSubmit)="transfer()">
+      <div class="form-group">
+        <label for="amount">Monto</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+          </div>
+          <input
+            id="amount"
+            name="amount"
+            placeholder="Ingrese monto"
+            type="number"
+            min=0
+            class="form-control"
+            formControlName="amount"
+          />
+        </div>
+      </div>
+
+      <div class="my-5">
+        <div class="d-flex justify-content-center">
+          <button
+            name="submit"
+            type="submit"
+            class="btn btn-primary btn-lg col-3"
+            [disabled]="!transferAmountForm.valid"
+          >
+            Transferir
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>

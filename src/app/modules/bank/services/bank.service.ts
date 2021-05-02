@@ -17,4 +17,12 @@ export class BankService {
   public createRecipient(params: any) {
     return this.communicationService.post('bank/new-recipient', params).toPromise();
   }
+
+  public getAllRecipients(body?: any) {
+    return this.communicationService.post('bank/recipients', body);
+  }
+
+  public transfer(body?: any) {
+    return this.communicationService.post('bank/transfer', body).toPromise();
+  }
 }
