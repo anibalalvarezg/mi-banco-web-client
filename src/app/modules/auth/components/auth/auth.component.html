@@ -1,0 +1,12 @@
+<div class="animate__animated animate__fadeIn">
+  <h1 class="m-5 d-flex justify-content-center">Mi Banco</h1>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-center p-3">
+      <a href="#" routerLink="login" *ngIf="!isLogin">Iniciar sesión</a>
+      <a href="#" routerLink="register" *ngIf="isLogin">Crear Cuenta</a>
+    </div>
+  </div>
+</div>

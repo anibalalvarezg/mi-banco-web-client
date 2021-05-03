@@ -1,0 +1,50 @@
+<div class="card mx-3 center animate__animated animate__fadeInLeft">
+  <div class="card-header">Inicio de sesión</div>
+  <div class="card-body p-4">
+    <app-alert
+      type="alert-danger"
+      message="Datos Incorretos!"
+      *ngIf="authError"
+    ></app-alert>
+    <app-alert
+      type="alert-success"
+      message="Cuenta creada con éxito!"
+      *ngIf="authService.newUser && !authError"
+    ></app-alert>
+    <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label"
+          >Correo Electrónico</label
+        >
+        <input
+          type="email"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Ingrese correo electrónico"
+          formControlName="email"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="passwordInput" class="form-label">Constraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          id="passwordInput"
+          placeholder="Ingrese contraseña"
+          formControlName="password"
+        />
+      </div>
+
+      <div class="d-grid gap-2">
+        <button
+          class="btn btn-primary mr-3"
+          type="submit"
+          [disabled]="!loginForm.valid"
+        >
+          Iniciar Sesión <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

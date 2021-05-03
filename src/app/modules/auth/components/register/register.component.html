@@ -1,0 +1,48 @@
+<div class="card mx-3 center animate__animated animate__fadeInRight">
+  <div class="card-header">Crear Cuenta</div>
+  <div class="card-body p-4">
+    <form action="" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+      <app-alert
+        type="alert-danger"
+        [message]="emailErrorMessage"
+        *ngIf="emailError"
+      ></app-alert>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label"
+          >Correo Electrónico*</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Ingrese correo electrónico"
+          formControlName="email"
+          (input)="trim($event, 'email')"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="passwordInput" class="form-label">Contraseña*</label>
+        <input
+          type="password"
+          class="form-control"
+          id="passwordInput"
+          placeholder="Ingrese contraseña"
+          formControlName="password"
+        />
+      </div>
+
+      <p class="text-muted p-2">*Campos obligatorios.</p>
+
+      <div class="d-grid gap-2">
+        <button
+          class="btn btn-primary mr-3"
+          type="submit"
+          [disabled]="registerForm.status === 'INVALID'"
+        >
+          Crear Cuenta <i class="fas fa-user-plus"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
