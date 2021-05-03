@@ -4,14 +4,19 @@
   <app-alert
     type="alert-danger"
     message="Error al crear al nuevo destinatario."
-    *ngIf="error"
+    *ngIf="showErrorAlert"
   ></app-alert>
   <app-alert
     type="alert-success"
     message="Se ha creado el nuevo destinatario con éxito."
-    *ngIf="success"
+    *ngIf="showSuccessAlert"
   ></app-alert>
-  <form action="" [formGroup]="recipientForm" (ngSubmit)="createRecipient()">
+  <form
+    action=""
+    class="animate__animated animate__fadeIn"
+    [formGroup]="recipientForm"
+    (ngSubmit)="createRecipient()"
+  >
     <div class="row">
       <div class="form-group col-sm-1 col-md-6">
         <label for="text">Nombre*</label>
@@ -28,13 +33,19 @@
       <div class="form-group col-sm-1 col-md-6">
         <label for="rut">Rut*</label>
         <input
+          #rut
           id="rut"
           name="rut"
           placeholder="Ingrese RUT"
           type="text"
           class="form-control"
+          [ngClass]="{ 'is-invalid': recipientForm.get('rut')?.errors?.rut || recipientForm.get('rut')?.errors?.rutExists }"
           formControlName="rut"
+          (input)="rutValidation($event)"
         />
+        <div id="rut" class="invalid-feedback">
+          {{recipientForm.get('rut')?.errors?.rut ? 'Rut Incorrecto' : 'Rut Existente' }}
+        </div>
       </div>
 
       <div class="form-group col-sm-1 col-md-6">
@@ -125,6 +136,7 @@
           name="number-account"
           placeholder="Ingrese Número de Cuenta"
           type="number"
+          min="0"
           class="form-control"
           formControlName="account"
           (input)="checkLength($event, 10, 'account')"

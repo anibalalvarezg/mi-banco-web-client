@@ -19,9 +19,9 @@ export class TransferMoneyComponent implements OnInit {
   public accountList: IAccount[] = [];
   public userId: string = '';
   public hasRecipients = true;
-
+  public succes = false;
   public transferAmountForm = this.fb.group({
-    amount: ['', [Validators.required, Validators.min(0)]],
+    amount: ['', [Validators.required, Validators.min(1)]],
   })
 
   constructor(
@@ -84,10 +84,17 @@ export class TransferMoneyComponent implements OnInit {
     try {
       await this.bankService.transfer(body);
       this.transferAmountForm.reset();
-      this.recipientSelected = '';
+      this.succes = true;
+      setTimeout(() => {
+        this.succes = false;
+      }, 6000);
     } catch(error) {
       console.error(error.message);
     }
 
+  }
+
+  public get showSuccessAlert(): boolean {
+    return this.succes;
   }
 }
