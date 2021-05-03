@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   emailErrorMessage = '';
 
   registerForm = this.fb.group({
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });
 
@@ -45,6 +45,13 @@ export class RegisterComponent implements OnInit {
       console.error(error.message);
     }
   }
+
+  public trim($event:any, control: string) {
+    let value = $event.target.value;
+    value = value.trim().replace(/\s+/g, ' ');
+    this.registerForm.get(control)?.setValue(value);
+  }
+
 }
 
 

@@ -12,11 +12,12 @@
           >Correo Electrónico*</label
         >
         <input
-          type="email"
+          type="text"
           class="form-control"
           id="exampleFormControlInput1"
           placeholder="Ingrese correo electrónico"
           formControlName="email"
+          (input)="trim($event, 'email')"
         />
       </div>
 
