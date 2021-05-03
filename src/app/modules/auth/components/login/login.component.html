@@ -1,16 +1,16 @@
-<div class="card mx-3 center">
+<div class="card mx-3 center animate__animated animate__fadeInLeft">
   <div class="card-header">Inicio de sesión</div>
   <div class="card-body p-4">
-    <div class="alert alert-danger" role="alert" *ngIf="authError">
-      <b>Datos Incorretos!</b>
-    </div>
-    <div
-      class="alert alert-success"
-      role="alert"
+    <app-alert
+      type="alert-danger"
+      message="Datos Incorretos!"
+      *ngIf="authError"
+    ></app-alert>
+    <app-alert
+      type="alert-success"
+      message="Cuenta creada con éxito!"
       *ngIf="authService.newUser && !authError"
-    >
-      <b>Cuenta creada con éxito!</b>
-    </div>
+    ></app-alert>
     <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label"
@@ -40,7 +40,7 @@
         <button
           class="btn btn-primary mr-3"
           type="submit"
-          [disabled]="loginForm.status === 'INVALID'"
+          [disabled]="!loginForm.valid"
         >
           Iniciar Sesión <i class="fas fa-sign-in-alt"></i>
         </button>

@@ -8,6 +8,14 @@ export class CacheService {
   }
 
   getItemLocal(key: string): any {
-    return localStorage.getItem(key) as string;
+    return localStorage.getItem(key) as string || null;
+  }
+
+  cleanLocal(): void {
+    localStorage.clear();
+  }
+
+  cleanSession(): void {
+    sessionStorage.clear();
   }
 }

@@ -1,0 +1,164 @@
+<div class="container p-5 animate__animated animate__fadeInRight">
+  <h1>Nuevo destinatario</h1>
+  <hr />
+  <app-alert
+    type="alert-danger"
+    message="Error al crear al nuevo destinatario."
+    *ngIf="showErrorAlert"
+  ></app-alert>
+  <app-alert
+    type="alert-success"
+    message="Se ha creado el nuevo destinatario con éxito."
+    *ngIf="showSuccessAlert"
+  ></app-alert>
+  <form
+    action=""
+    class="animate__animated animate__fadeIn"
+    [formGroup]="recipientForm"
+    (ngSubmit)="createRecipient()"
+  >
+    <div class="row">
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="text">Nombre*</label>
+        <input
+          id="text"
+          name="text"
+          placeholder="Ingrese Nombre"
+          type="text"
+          class="form-control"
+          formControlName="name"
+          (input)="trim($event, 'name')"
+        />
+      </div>
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="rut">Rut*</label>
+        <input
+          #rut
+          id="rut"
+          name="rut"
+          placeholder="Ingrese RUT"
+          type="text"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': recipientForm.get('rut')?.errors?.rut || recipientForm.get('rut')?.errors?.rutExists }"
+          formControlName="rut"
+          (input)="rutValidation($event)"
+        />
+        <div id="rut" class="invalid-feedback">
+          {{recipientForm.get('rut')?.errors?.rut ? 'Rut Incorrecto' : 'Rut Existente' }}
+        </div>
+      </div>
+
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="email">Correo*</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-envelope"></i>
+            </div>
+          </div>
+          <input
+            id="email"
+            name="email"
+            placeholder="Ingrese Correo Electrónico"
+            type="text"
+            class="form-control"
+            formControlName="email"
+            (input)="trim($event, 'email')"
+          />
+        </div>
+      </div>
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="phone-number">Teléfono*</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">+569</div>
+          </div>
+          <input
+            id="phone-number"
+            type="number"
+            name="phone-number"
+            placeholder="Ingrese número de teléfono"
+            class="form-control"
+            formControlName="phone"
+            (input)="checkLength($event, 8, 'phone')"
+          />
+        </div>
+      </div>
+
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="bank">Banco*</label>
+        <div>
+          <select
+            id="bank"
+            name="bank"
+            aria-describedby="bankHelpBlock"
+            required="required"
+            class="custom-select"
+            formControlName="bank"
+          >
+            <option *ngFor="let bank of bankList" [value]="bank?.id">
+              {{ bank?.name }}
+            </option>
+          </select>
+          <span id="bankHelpBlock" class="form-text text-muted"
+            >Seleccione Banco</span
+          >
+        </div>
+      </div>
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="banck-account">Tipo de Cuenta*</label>
+        <div>
+          <select
+            id="banck-account"
+            name="banck-account"
+            class="custom-select"
+            aria-describedby="banck-accountHelpBlock"
+            formControlName="accountType"
+          >
+            <option
+              *ngFor="let account of accountList"
+              [value]="account?.value"
+            >
+              {{ account?.name }}
+            </option>
+          </select>
+          <span id="banck-accountHelpBlock" class="form-text text-muted"
+            >Seleccione Tipo de Cuenta</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="number-account">Nº de Cuenta*</label>
+        <input
+          id="number-account"
+          name="number-account"
+          placeholder="Ingrese Número de Cuenta"
+          type="number"
+          min="0"
+          class="form-control"
+          formControlName="account"
+          (input)="checkLength($event, 10, 'account')"
+        />
+      </div>
+
+      <div class="col-6"></div>
+    </div>
+
+    <p class="text-muted p-2">*Campos obligatorios.</p>
+
+    <div class="my-5">
+      <div class="d-flex justify-content-center">
+        <button
+          name="submit"
+          type="submit"
+          class="btn btn-primary btn-lg col-sm-2 col-sm-3"
+          [disabled]="!recipientForm.valid"
+        >
+          Crear
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
