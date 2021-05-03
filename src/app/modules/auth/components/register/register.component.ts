@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -8,12 +8,12 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
-  emailError = false;
-  emailErrorMessage = '';
+  public emailError = false;
+  public emailErrorMessage = '';
 
-  registerForm = this.fb.group({
+  public registerForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });
@@ -22,10 +22,7 @@ export class RegisterComponent implements OnInit {
               private authService: AuthService,
               private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
-  async registerUser() {
+  public async registerUser() {
     try {
       const response = await this.authService.signup(this.registerForm.value) as any;
       if (response) {
@@ -51,7 +48,6 @@ export class RegisterComponent implements OnInit {
     value = value.trim().replace(/\s+/g, ' ');
     this.registerForm.get(control)?.setValue(value);
   }
-
 }
 
 
