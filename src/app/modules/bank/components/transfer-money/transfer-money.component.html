@@ -1,9 +1,10 @@
 <div class="container p-5 animate__animated animate__fadeInRight">
   <h1>Transferir</h1>
   <hr />
-  <div class="alert alert-primary animate__animated animate__fadeIn" role="alert" *ngIf="!hasRecipients">
-    Aún no posees <b>destinatarios</b> para trasnferir!
-  </div>
+  <app-alert
+    message=" Aún no posees destinatarios para trasnferir!"
+    *ngIf="!hasRecipients"
+  ></app-alert>
   <div class="form-group col-sm-12 col-md-6" *ngIf="recipientsList.length">
     <label for="banck-account">Buscar Destinataio </label>
     <div>
@@ -32,7 +33,12 @@
     <p>
       Tipo de Cuenta: <b class="pl-2">{{ recipient?.accountType || "-" }}</b>
     </p>
-    <form action="" class="mt-2" [formGroup]="transferAmountForm" (ngSubmit)="transfer()">
+    <form
+      action=""
+      class="mt-2"
+      [formGroup]="transferAmountForm"
+      (ngSubmit)="transfer()"
+    >
       <div class="form-group">
         <label for="amount">Monto</label>
         <div class="input-group">
@@ -46,7 +52,7 @@
             name="amount"
             placeholder="Ingrese monto"
             type="number"
-            min=0
+            min="0"
             class="form-control"
             formControlName="amount"
           />
@@ -67,5 +73,4 @@
       </div>
     </form>
   </div>
-
 </div>

@@ -1,12 +1,16 @@
 <div class="container p-5 animate__animated animate__fadeInRight">
   <h1>Nuevo destinatario</h1>
   <hr />
-  <div class="alert alert-danger animate__animated animate__fadeIn" role="alert" *ngIf="error">
-    <b>Error al crear al nuevo destinatario.</b>
-  </div>
-  <div class="alert alert-success animate__animated animate__fadeIn" role="alert" *ngIf="success">
-    <b>Se ha creado el nuevo destinatario con éxito.</b>
-  </div>
+  <app-alert
+    type="alert-danger"
+    message="Error al crear al nuevo destinatario."
+    *ngIf="error"
+  ></app-alert>
+  <app-alert
+    type="alert-success"
+    message="Se ha creado el nuevo destinatario con éxito."
+    *ngIf="success"
+  ></app-alert>
   <form action="" [formGroup]="recipientForm" (ngSubmit)="createRecipient()">
     <div class="row">
       <div class="form-group col-sm-1 col-md-6">
@@ -16,25 +20,24 @@
           name="text"
           placeholder="Ingrese Nombre"
           type="text"
-          required="required"
           class="form-control"
           formControlName="name"
+          (input)="trim($event, 'name')"
         />
       </div>
-      <div class="form-group col-sm-1  col-md-6">
+      <div class="form-group col-sm-1 col-md-6">
         <label for="rut">Rut*</label>
         <input
           id="rut"
           name="rut"
           placeholder="Ingrese RUT"
           type="text"
-          required="required"
           class="form-control"
           formControlName="rut"
         />
       </div>
 
-      <div class="form-group col-sm-1  col-md-6">
+      <div class="form-group col-sm-1 col-md-6">
         <label for="email">Correo*</label>
         <div class="input-group">
           <div class="input-group-prepend">
@@ -46,10 +49,10 @@
             id="email"
             name="email"
             placeholder="Ingrese Correo Electrónico"
-            type="email"
-            required="required"
+            type="text"
             class="form-control"
             formControlName="email"
+            (input)="trim($event, 'email')"
           />
         </div>
       </div>
@@ -61,20 +64,18 @@
           </div>
           <input
             id="phone-number"
+            type="number"
             name="phone-number"
             placeholder="Ingrese número de teléfono"
-            maxlength="8"
-            type="text"
-            required="required"
             class="form-control"
             formControlName="phone"
+            (input)="checkLength($event, 8, 'phone')"
           />
         </div>
       </div>
 
-      <div class="form-group col-sm-1  col-md-6">
-        <label for="bank">Banco*
-        </label>
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="bank">Banco*</label>
         <div>
           <select
             id="bank"
@@ -93,9 +94,8 @@
           >
         </div>
       </div>
-      <div class="form-group col-sm-1  col-md-6">
-        <label for="banck-account">Tipo de Cuenta*
-        </label>
+      <div class="form-group col-sm-1 col-md-6">
+        <label for="banck-account">Tipo de Cuenta*</label>
         <div>
           <select
             id="banck-account"
@@ -104,7 +104,12 @@
             aria-describedby="banck-accountHelpBlock"
             formControlName="accountType"
           >
-            <option *ngFor="let account of accountList" [value]="account?.value">{{ account?.name }}</option>
+            <option
+              *ngFor="let account of accountList"
+              [value]="account?.value"
+            >
+              {{ account?.name }}
+            </option>
           </select>
           <span id="banck-accountHelpBlock" class="form-text text-muted"
             >Seleccione Tipo de Cuenta</span
@@ -113,16 +118,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-1  col-md-6">
+      <div class="form-group col-sm-1 col-md-6">
         <label for="number-account">Nº de Cuenta*</label>
         <input
           id="number-account"
           name="number-account"
           placeholder="Ingrese Número de Cuenta"
-          type="text"
+          type="number"
           class="form-control"
-          required="required"
           formControlName="account"
+          (input)="checkLength($event, 10, 'account')"
         />
       </div>
 

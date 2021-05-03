@@ -2,9 +2,11 @@
   <div class="card-header">Crear Cuenta</div>
   <div class="card-body p-4">
     <form action="" [formGroup]="registerForm" (ngSubmit)="registerUser()">
-      <div class="alert alert-danger animate__animated animate__fadeIn" role="alert" *ngIf="emailError">
-        <b>{{ emailErrorMessage }}</b>
-      </div>
+      <app-alert
+        type="alert-danger"
+        [message]="emailErrorMessage"
+        *ngIf="emailError"
+      ></app-alert>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label"
           >Correo Electrónico*</label

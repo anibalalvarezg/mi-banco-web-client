@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { IHTTPResponse } from 'src/app/modules/core/interfaces/http-response';
 import { CacheService } from 'src/app/modules/core/services/cache.service';
@@ -22,7 +22,7 @@ export class NewRecipientsComponent implements OnInit {
     name: ['', Validators.required],
     rut: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', Validators.required],
+    phone: ['', [Validators.required, Validators.minLength(8)]],
     bank: ['', Validators.required],
     account: ['', Validators.required],
     accountType: ['', Validators.required],
@@ -74,4 +74,18 @@ export class NewRecipientsComponent implements OnInit {
 
   }
 
+  public checkLength($event:any, maxLength: number, control: string) {
+    const value = $event.target.value;
+    this.recipientForm.get(control)?.setValue(value.slice(0, maxLength));
+  }
+
+  public trim($event:any, control: string) {
+    let value = $event.target.value;
+    if (control === 'email') {
+      value = value.trim().replace(/\s+/g, ' ');
+    } else {
+      value = value.trimLeft().replace(/\s+/g, ' ');
+    }
+    this.recipientForm.get(control)?.setValue(value);
+  }
 }
