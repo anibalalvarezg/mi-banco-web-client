@@ -21,7 +21,7 @@ export class TransactionHistoryComponent implements OnInit {
     private bankService: BankService,
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  public async ngOnInit(): Promise<void> {
     const user = JSON.parse(this.cacheService.getItemLocal('session')) || null;
     if (user) {
       this.userId = user._id;

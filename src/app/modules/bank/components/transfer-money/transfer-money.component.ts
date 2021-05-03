@@ -50,7 +50,7 @@ export class TransferMoneyComponent implements OnInit {
     this.accountList = accountResp.data;
   }
 
-  get recipient() {
+  public get recipient() {
     if (this.recipientsList.length && this.recipientSelected) {
       let recipient =  this.recipientsList.find((recipient: any) => recipient._id === this.recipientSelected);
       const bank = this.bankList.find(bank => bank.id === recipient?.bank);
