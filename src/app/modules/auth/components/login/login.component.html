@@ -1,11 +1,15 @@
-<div class="card mx-3 center">
+<div class="card mx-3 center animate__animated animate__fadeInLeft">
   <div class="card-header">Inicio de sesión</div>
   <div class="card-body p-4">
-    <div class="alert alert-danger" role="alert" *ngIf="authError">
+    <div
+      class="alert alert-danger animate__animated animate__fadeIn"
+      role="alert"
+      *ngIf="authError"
+    >
       <b>Datos Incorretos!</b>
     </div>
     <div
-      class="alert alert-success"
+      class="alert alert-success animate__animated animate__fadeIn"
       role="alert"
       *ngIf="authService.newUser && !authError"
     >

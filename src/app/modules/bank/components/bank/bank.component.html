@@ -1,24 +1,46 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
+  <div class="container-fluid d-flex justify-content-center">
     <span class="navbar-brand mb-0 h1">Mi banco - Nueva Transferencia</span>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse ml-5" id="navbarText">
+    <div class="ml-5" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item mx-2">
-          <button type="button" class="btn btn-outline-secondary btn-sm" [routerLink]="['new-recipients']">Nuevo Destinatario</button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+            [routerLink]="['new-recipients']"
+          >
+            Nuevo Destinatario
+          </button>
         </li>
         <li class="nav-item mx-2">
-          <button type="button" class="btn btn-outline-secondary btn-sm" [routerLink]="['transfer']">Transferir</button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+            [routerLink]="['transfer']"
+          >
+            Transferir
+          </button>
         </li>
         <li class="nav-item mx-2">
-          <button type="button" class="btn btn-outline-secondary btn-sm" [routerLink]="['history']">Historial</button>
-        </li>
-        <li class="nav-item ml-5">
-          <button type="button" class="btn btn-secondary btn-sm" [routerLink]="['history']" (click)="logout()">Cerrar Sesión <i class="fas fa-sign-out-alt"></i></button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+            [routerLink]="['history']"
+          >
+            Historial
+          </button>
         </li>
       </ul>
+    </div>
+    <div class="nav-item ml-5">
+      <button
+        type="button"
+        class="btn btn-secondary btn-sm"
+        [routerLink]="['history']"
+        (click)="logout()"
+      >
+        Cerrar Sesión <i class="fas fa-sign-out-alt"></i>
+      </button>
     </div>
   </div>
 </nav>
